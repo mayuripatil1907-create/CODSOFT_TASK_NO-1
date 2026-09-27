@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduManage | Attendance</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 240px;
+            height: 100vh;
+            background: #173b7a;
+            padding: 25px 15px;
+        }
+
+        .logo {
+            color: white;
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .logo span {
+            color: #8ec5ff;
+        }
+
+        .menu {
+            list-style: none;
+        }
+
+        .menu li {
+            margin: 8px 0;
+        }
+
+        .menu a {
+            display: block;
+            padding: 13px 15px;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .menu a:hover,
+        .menu .active {
+            background: #2f6fca;
+        }
+
+        .main {
+            margin-left: 240px;
+            padding: 30px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .topbar h1 {
+            font-size: 28px;
+            color: #173b7a;
+        }
+
+        .admin {
+            background: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            font-weight: bold;
+        }
+
+        .form-box,
+        .table-box {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            color: #173b7a;
+            margin-bottom: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            outline: none;
+            background: white;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #2f6fca;
+        }
+
+        .add-btn {
+            margin-top: 20px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            background: #173b7a;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .add-btn:hover {
+            background: #2f6fca;
+        }
+
+        .table-box {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 700px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 13px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background: #eef5ff;
+            color: #173b7a;
+        }
+
+        .present {
+            color: green;
+            font-weight: bold;
+        }
+
+        .absent {
+            color: red;
+            font-weight: bold;
+        }
+
+        @media (max-width: 800px) {
+            .sidebar {
+                width: 190px;
+            }
+
+            .main {
+                margin-left: 190px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <div class="logo">
+            Edu<span>Manage</span>
+        </div>
+
+        <ul class="menu">
+
+            <li>
+                <a href="dashboard.html" class="active">Dashboard</a>
+            </li>
+
+            <li>
+                <a href="student.html">Students</a>
+            </li>
+
+            <li>
+                <a href="teacher.html">Teachers</a>
+            </li>
+
+            <li>
+                <a href="attendance.html">Attendance</a>
+            </li>
+
+            <li>
+                <a href="examination.html">Examination</a>
+            </li>
+
+            <li>
+                <a href="fees.html">Fees</a>
+            </li>
+
+            <li>
+                <a href="academic.html">Academic Records</a>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="main">
+
+        <div class="topbar">
+
+            <h1>Attendance Management</h1>
+
+            <div class="admin">
+                👤 Admin
+            </div>
+
+        </div>
+
+
+        <!-- Attendance Form -->
+        <div class="form-box">
+
+            <h2>Mark Attendance</h2>
+
+            <div class="form-grid">
+
+                <input type="text" id="studentId"
+                       placeholder="Student ID">
+
+                <input type="text" id="studentName"
+                       placeholder="Student Name">
+
+                <input type="date" id="attendanceDate">
+
+                <select id="status">
+                    <option value="">Select Attendance</option>
+                    <option value="Present">Present</option>
+                    <option value="Absent">Absent</option>
+                </select>
+
+            </div>
+
+            <button class="add-btn" onclick="markAttendance()">
+                + Mark Attendance
+            </button>
+
+        </div>
+
+
+        <!-- Attendance Records -->
+        <div class="table-box">
+
+            <h2>Attendance Records</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Student Name</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="attendanceTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function markAttendance() {
+
+    let id = document.getElementById("studentId").value;
+    let name = document.getElementById("studentName").value;
+    let date = document.getElementById("attendanceDate").value;
+    let status = document.getElementById("status").value;
+
+    if (id === "" || name === "" || date === "" || status === "") {
+        alert("Please fill all attendance details.");
+        return;
+    }
+
+    fetch("http://localhost:8080/attendance", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            student_id: id,
+            date: date,
+            status: status
+        })
+    })
+    .then(response => response.text())
+    .then(data => {
+
+        console.log(data);
+        alert(data);
+
+        let table = document.getElementById("attendanceTable");
+
+        let row = table.insertRow();
+
+        row.insertCell(0).innerText = id;
+        row.insertCell(1).innerText = name;
+        row.insertCell(2).innerText = date;
+
+        let statusCell = row.insertCell(3);
+        statusCell.innerText = status;
+
+        if (status === "Present") {
+            statusCell.className = "present";
+        } else {
+            statusCell.className = "absent";
+        }
+
+        document.getElementById("studentId").value = "";
+        document.getElementById("studentName").value = "";
+        document.getElementById("attendanceDate").value = "";
+        document.getElementById("status").value = "";
+
+    })
+    .catch(error => {
+
+        console.log("Error:", error);
+        alert("Java Server connection failed!");
+
+    });
+}
+</script>
+</body>
+</html>

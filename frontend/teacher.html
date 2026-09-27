@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduManage | Teachers</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 240px;
+            height: 100vh;
+            background: #173b7a;
+            padding: 25px 15px;
+        }
+
+        .logo {
+            color: white;
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .logo span {
+            color: #8ec5ff;
+        }
+
+        .menu {
+            list-style: none;
+        }
+
+        .menu li {
+            margin: 8px 0;
+        }
+
+        .menu a {
+            display: block;
+            padding: 13px 15px;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .menu a:hover,
+        .menu .active {
+            background: #2f6fca;
+        }
+
+        .main {
+            margin-left: 240px;
+            padding: 30px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .topbar h1 {
+            font-size: 28px;
+            color: #173b7a;
+        }
+
+        .admin {
+            background: white;
+            padding: 10px 18px;
+            border-radius: 25px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            font-weight: bold;
+        }
+
+        .form-box,
+        .table-box {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            color: #173b7a;
+            margin-bottom: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #2f6fca;
+        }
+
+        .add-btn {
+            margin-top: 20px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            background: #173b7a;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .add-btn:hover {
+            background: #2f6fca;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 13px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background: #eef5ff;
+            color: #173b7a;
+        }
+
+        .delete-btn {
+            padding: 7px 12px;
+            border: none;
+            border-radius: 6px;
+            background: #dc3545;
+            color: white;
+            cursor: pointer;
+        }
+
+        @media (max-width: 800px) {
+            .sidebar {
+                width: 190px;
+            }
+
+            .main {
+                margin-left: 190px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+        <div class="logo">
+            Edu<span>Manage</span>
+        </div>
+
+        <ul class="menu">
+
+            <li>
+                <a href="dashboard.html">Dashboard</a>
+            </li>
+
+            <li>
+                <a href="student.html">Students</a>
+            </li>
+
+            <li>
+                <a href="teachers.html" class="active">Teachers</a>
+            </li>
+
+            <li>
+                <a href="attendance.html">Attendance</a>
+            </li>
+
+            <li>
+                <a href="examination.html">Examination</a>
+            </li>
+
+            <li>
+                <a href="fees.html">Fees</a>
+            </li>
+
+            <li>
+                <a href="academic.html">Academic Records</a>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="main">
+
+        <div class="topbar">
+
+            <h1>Teacher Management</h1>
+
+            <div class="admin">
+                👤 Admin
+            </div>
+
+        </div>
+
+
+        <!-- Add Teacher -->
+        <div class="form-box">
+
+            <h2>Add New Teacher</h2>
+
+            <div class="form-grid">
+
+                
+                <input type="text" id="teacherName" placeholder="Teacher Name">
+
+                <input type="email" id="teacherEmail" placeholder="Email">
+
+                <input type="text" id="teacherPhone" placeholder="Phone Number">
+
+                <input type="text" id="teacherSubject" placeholder="Subject">
+
+                
+
+            </div>
+
+            <button class="add-btn" onclick="addTeacher()">
+                + Add Teacher
+            </button>
+
+        </div>
+
+
+        <!-- Teacher Records -->
+        <div class="table-box">
+
+            <h2>Teacher Records</h2>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Subject</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="teacherTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <script>
+        function addTeacher() {
+
+    let name = document.getElementById("teacherName").value;
+    let email = document.getElementById("teacherEmail").value;
+    let phone = document.getElementById("teacherPhone").value;
+    let subject = document.getElementById("teacherSubject").value;
+
+    if (name === "") {
+        alert("Please enter Teacher Name.");
+        return;
+    }
+
+    fetch("http://localhost:8080/teacher", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: name,
+            email: email,
+            phone: phone,
+            subject: subject
+        })
+    })
+    .then(response => response.text())
+    .then(data => {
+
+        console.log(data);
+        alert(data);
+
+        let table = document.getElementById("teacherTable");
+
+        let row = table.insertRow();
+
+        row.insertCell(0).innerText = " ";
+        row.insertCell(1).innerText = name;
+        row.insertCell(2).innerText = email;
+        row.insertCell(3).innerText = phone;
+        row.insertCell(4).innerText = subject;
+
+        let deleteCell = row.insertCell(5);
+
+        let deleteButton = document.createElement("button");
+
+        deleteButton.innerText = "Delete";
+        deleteButton.className = "delete-btn";
+
+        deleteButton.onclick = function() {
+            row.remove();
+        };
+
+        deleteCell.appendChild(deleteButton);
+
+        document.getElementById("teacherName").value = "";
+        document.getElementById("teacherEmail").value = "";
+        document.getElementById("teacherPhone").value = "";
+        document.getElementById("teacherSubject").value = "";
+
+    })
+    .catch(error => {
+        console.log("Error:", error);
+        alert("Java Server connection failed!");
+    });
+}
+</script>
+</body>
+</html>
